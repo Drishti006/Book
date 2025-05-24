@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= book.title %> - Details</title>
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<style>
+.about-page {
+  margin: 0;
+  padding: 30px;
+  background-color: #E9DCC9;
+  color: #4A3B30;
+  font-family: serif;
+  font-weight: bold;
+}
+
+.about-page a {
+  text-decoration: none;
+  color: #C68A70;
+  background-color: #4A3B30;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+.about-page a:hover {
+  background-color: #C68A70;
+  color: #E9DCC9;
+}
+
+.about-page h1 {
+  margin-top: 20px;
+  font-size: 32px;
+}
+
+.about-page img {
+  margin-top: 20px;
+  max-height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.about-page p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.about-page h3 {
+  margin-top: 30px;
+}
+</style>
+
+<body>
+    <div class="about-page">
+  <!-- your content -->
+   <div style="padding: 30px;">
+    <a href="/home">← Back to List</a>
+    <h1><%= book.title %></h1>
+    <p><strong>Author:</strong> <%= book.author %></p>
+    <p><strong>Rating:</strong> <%= book.rating %>/5</p>
+    <p><strong>Date Added:</strong> <%= date %></p>
+    <img src="https://covers.openlibrary.org/b/olid/<%= book.olid %>-M.jpg" alt="Cover" style="max-height: 300px;"/>
+    <h3>Notes:</h3>
+    <p><%= book.notes %></p>
+  </div>
+</div>
+
+  <!-- Footer -->
+    <footer class="footer">
+  <p>© 2025 Drishti Gautam. All rights reserved.</p>
+</footer>
+</body>
+</html>

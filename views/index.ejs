@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    
+<div class="parent">
+    <div class="div1">
+        <h1>Books</h1>
+        <button id="sortRating">Sort by Rating</button>
+<button id="sortDate">Sort by Recency</button>
+    </div>
+    <div class="div2">
+        <a href="/add"><span>+</span>Add New Book</a>
+    </div>
+    <div class="div3">
+        <!-- Table of read books -->
+           <table border="1" id="booksTable">
+            <thead style="color: aqua;">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Running through each saved book in database -->
+                <% books.forEach((book)=> { %>
+      <tr>
+        <td style="cursor: pointer;">
+           <a href="/about/<%= book.id %>" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+    <img src="https://covers.openlibrary.org/b/olid/<%= book.olid %>-S.jpg" alt="" style="height: 50px;">
+    <span style="cursor: pointer;"><%= book.title %></span>
+  </a>
+        </td>
+        <td><%= book.author %></td>
+        <td><%= book.rating %></td>
+        <td><%= book.date_read %></td>
+        <td>
+                        <a class="action-link edit-link" href="/edit/<%= book.id %>">Edit</a>
+                        <a class="action-link delete-link"x href="/delete/<%= book.id %>">Delete</a>
+                    </td>
+      </tr>
+    <% }); %>
+            
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2025 Drishti Gautam. All rights reserved.</p>
+</footer>
+
+    <script>
+  const table = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
+
+  // Helper to convert date string to timestamp for sorting
+  function parseDate(dateStr) {
+    return new Date(dateStr).getTime();
+  }
+
+  function sortTable(columnIndex, numeric = false, desc = false) {
+    const rowsArray = Array.from(table.rows);
+
+    rowsArray.sort((a, b) => {
+      let valA = a.cells[columnIndex].textContent.trim();
+      let valB = b.cells[columnIndex].textContent.trim();
+
+      if (numeric) {
+        valA = parseFloat(valA);
+        valB = parseFloat(valB);
+      } else {
+        valA = valA.toLowerCase();
+        valB = valB.toLowerCase();
+      }
+
+      if (valA < valB) return desc ? 1 : -1;
+      if (valA > valB) return desc ? -1 : 1;
+      return 0;
+    });
+
+    rowsArray.forEach(row => table.appendChild(row));
+  }
+
+  document.getElementById('sortRating').addEventListener('click', () => {
+    sortTable(2, true, true); // rating column, numeric, descending
+  });
+
+  document.getElementById('sortDate').addEventListener('click', () => {
+    sortTable(3, false, true); // date column, descending
+  });
+</script>
+</body>
+</html>
